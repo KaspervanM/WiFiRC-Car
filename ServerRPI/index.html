@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--link rel="stylesheet" type="text/css" href="CSS.css"-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="control.js"></script>
+		<script src="livestream.js"></script>
+		<link rel="stylesheet" href="index.css">
+	</head>
+	<body>
+		<section class="live_feed">
+			<img id=liveStream alt="Sorry, no video available at the moment...">
+		</section>
+		<div class="controls">
+		<section class="cam_control">
+			<h2>Move the camera (not yet available)</h2>
+			<div class="buttons">
+				<button id="upCamTurn">/\</button><br>
+				<button id="leftCamTurn"><-</button>
+				<button id="rightCamTurn">-></button><br>
+				<button id="downCamTurn">\/</button>
+			</div>
+		</section>
+		<section class="wheel_control">
+			<h2>Move car</h2>
+			<div class="buttons">
+				<button id="upSteer">/\</button><br>
+				<button id="leftSteer"><-</button>
+				<button id="rightSteer">-></button><br>
+				<button id="downSteer">\/</button>
+			</div>
+			<p>Or, press q,a,e,d for l+,l-,r-,r+</p>
+			<input id="slide" type="range" min="1" max="1000" step="1" value="600" onchange="javascript:updateSlider(this.value)">
+			<div id="sliderAmount">600</div>
+		</section>
+
+		<p>You may want to <a href='/WiFiConnections.php'>go to the WiFi page</a>.</p>
+	</body>
+</html>

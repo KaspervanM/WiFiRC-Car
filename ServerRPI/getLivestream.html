@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src='https://code.jquery.com/jquery-3.1.0.min.js'></script>
+	</head>
+	<body>
+		<canvas id="canvas" width=320 height=240></canvas>
+		<video id="player" controls autoplay></video>
+		<p id="data"></p>
+		<script>
+			const player = document.getElementById('player');
+			const canvas = document.getElementById('canvas');
+			const dataputter = document.getElementById('data');
+			const context = canvas.getContext('2d');
+			const constraints = {
+				audio: true,
+				video: true
+			};
+
+			async function getMedia(constraints) {
+			  let stream = null;
+			  try {
+			    stream = await navigator.mediaDevices.getUserMedia(constraints);
+					player.srcObject = stream;
+					/* use the stream */
+			  } catch(err) {
+			    /* handle the error */
+			  }
+			}
+
+			function captureFrame(timestamp){
+				context.drawImage(player, 0, 0, canvas.width, canvas.height);
+				var dataUrl = canvas.toDataURL();
+				$.ajax({
+					type: "POST",
+					url: "vidSaver.php",
+					data: {
+						frame_base64: dataUrl
+					}
+					}).done(function(msg) {
+					//console.log('saved');
+					// Do Any thing you want
+				});
+    		window.requestAnimationFrame(captureFrame);
+			}
+			$( document ).ready(getMedia(constraints));
+			$( document ).ready(window.requestAnimationFrame(captureFrame));
+		</script>
+	</body>
+</html>

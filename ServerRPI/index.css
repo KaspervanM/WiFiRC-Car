@@ -1,0 +1,77 @@
+html { width:100%; height:100%; margin:0 padding:0; }
+body { width:100%; height:100%; margin:0; padding:0; }
+
+.live_feed {
+	width: 100vw;
+	height: auto;
+	background-color: powderblue;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.controls {
+	width: intrinsic;           /* Safari/WebKit uses a non-standard name */
+  width: -moz-max-content;    /* Firefox/Gecko */
+  width: -webkit-max-content; /* Chrome */
+  width: max-content;
+	height: auto;
+	/*background-color: blue;*/
+	margin: auto;
+}
+
+.cam_control {
+	width: 80vw;
+	height: auto;
+	margin-left: 10px;
+	vertical-align:top
+}
+
+.cam_control .buttons {
+	background-color: darkgrey;
+	text-align: center;
+}
+
+.cam_control .buttons button {
+	height: 8vw;
+	width: 8vw;
+	font-size: 3vw;
+}
+
+.wheel_control {
+	width: 80vw;
+	height: auto;
+	margin-left: 20px;
+}
+
+.wheel_control .buttons {
+	background-color: darkgrey;
+	text-align: center;
+}
+
+.wheel_control .buttons button {
+	height: 14vw;
+	width: 14vw;
+	font-size: 6vw;
+}
+
+@media only screen and (min-width:800px) {
+	.wheel_control{
+		width: 30vw;
+		display: inline-block;
+	}
+	.cam_control{
+		width: 30vw;
+		display: inline-block;
+	}
+	.cam_control .buttons button {
+		height: 3vw;
+		width: 3vw;
+		font-size: 1vw;
+	}
+	.wheel_control .buttons button {
+		height: 5vw;
+		width: 5vw;
+		font-size: 2vw;
+	}
+}
