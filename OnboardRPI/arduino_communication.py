@@ -12,5 +12,5 @@ while True:
 		passwd = msg.split()[1]
 		exit()
 	sleep(100/1000)
-system('wpa_passphrase ' + ssid + ' ' + passwd = ' >> /etc/wpa_supplicant/wpa_supplicant.conf')
-system('wpa_cli -i wlan0 reconfigure')
+system('sudo wpa_passphrase ' + ssid + ' ' + passwd = ' >> /etc/wpa_supplicant/wpa_supplicant.conf')
+system('sudo wpa_cli -i wlan0 reconfigure')
