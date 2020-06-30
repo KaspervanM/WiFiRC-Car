@@ -1,6 +1,6 @@
 from serial import Serial
 from time import sleep
-from wifi import
+from os import system
 
 ser = Serial('/dev/ttyUSB0',9600)
 ser.write('p')
@@ -12,3 +12,5 @@ while True:
 		passwd = msg.split()[1]
 		exit()
 	sleep(100/1000)
+system('wpa_passphrase ' + ssid + ' ' + passwd = ' >> /etc/wpa_supplicant/wpa_supplicant.conf')
+system('wpa_cli -i wlan0 reconfigure')
