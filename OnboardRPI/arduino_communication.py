@@ -10,7 +10,8 @@ while True:
 		msg = read_serial[9:]
 		ssid = msg.split()[0]
 		passwd = msg.split()[1]
-		exit()
+		break
 	sleep(100/1000)
 system('sudo wpa_passphrase ' + ssid + ' ' + passwd = ' >> /etc/wpa_supplicant/wpa_supplicant.conf')
 system('sudo wpa_cli -i wlan0 reconfigure')
+exit()
