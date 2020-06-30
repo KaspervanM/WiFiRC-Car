@@ -1,6 +1,7 @@
-from serial import Serial
-from time import sleep
 from os import system
+from time import sleep
+
+from serial import Serial
 
 ser = Serial("/dev/ttyUSB0", 9600)
 ser.write("p")
