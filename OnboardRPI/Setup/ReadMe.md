@@ -44,5 +44,18 @@ first run `sudo raspi-config`, then choose option 3 `Boot Options`, then choose 
 I had a TL-WN725N. If you have that as well follow the guide on this page: https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=62371.
 If you have another model or brand, you will have to find another guide somewhere online.
 
+### Serial connection with ESP8266
+I will do this with a python script. To import the correct libraries, first install pip.
+```
+sudo apt-get install python-pip
+```
+Then, install the PySerial library.
+```
+sudo pip install PySerial
+```
+Once that has finished, you can upload or create the file found in 'WiFiRC-Car/OnboardRPI/arduino_communication.py'.
+Make sure you change `/dev/ttyUSB0` to the usb port you used.
+How this is done will be explained in the future.
+
 ### Work in progress
 This is as far as I can go with the progress I have made with this project myself. Though, I am trying to make use of nmcli to manage the connections, but I am having trouble making it work.
