@@ -119,7 +119,7 @@ $(document).ready(function() {
         }else {lSend = lSend + "+";}
         //rSend
         var rSend = Math.abs(VR) + "r";
-        if (VL<0) {
+        if (VR<0) {
             rSend = rSend + "-";
         }else {rSend = rSend + "+";}
         
