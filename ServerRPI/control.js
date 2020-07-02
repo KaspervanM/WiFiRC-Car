@@ -75,6 +75,7 @@ $(document).ready(function() {
 	});
 
 	var prevSpeed = " ";
+
 	//Joystick
 	setInterval(function(){
 		//get joystick coordinates
@@ -82,9 +83,31 @@ $(document).ready(function() {
 		var y = Joy.GetY()/100;
 		var minSpeed = document.getElementById('slide').value;
 
-		var v = Math.hypot(x, y) * 1000;
-		var VL = Math.max((y >= 0 ? v * Math.min(1+2*x, 1) : v * Math.max(-1-2*x, -1)), minSpeed);
-		var VR = Math.max((y >= 0 ? v * Math.min(1-2*x, 1) : v * Math.max(-1+2*x, -1)), minSpeed);
+		//convert to polar
+		var r = Math.hypot(x, y);
+		if (r>1) {r=1}//because it's a square joystick
+		var t = Math.atan2(y, x);
+
+		//rotate by 45 degrees
+		t -= Math.PI / 4;
+
+		//back to cartesian
+		var VL = r * Math.cos(t);
+		var VR = r * Math.sin(t);
+
+		//rescale the new coords
+		VL = VL * Math.sqrt(2);
+		VR = VR * Math.sqrt(2);
+
+		//clamp to -1/+1
+		VL = Math.max(-1, Math.min(VL, 1))*1000;
+		VR = Math.max(-1, Math.min(VR, 1))*1000;
+
+		//Apply minimum at which motors start moving
+		//VL
+		if (VL != 0) VL = Math.round(VL/Math.abs(VL)*minSpeed + VL/1000 *(1000 - minSpeed));
+		//VR
+		if (VR != 0) VR = Math.round(VR/Math.abs(VR)*minSpeed + VR/1000 *(1000 - minSpeed));
 
 		//Convert to arduino readable values
 		//lSend
