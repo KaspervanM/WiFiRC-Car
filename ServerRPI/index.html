@@ -4,6 +4,7 @@
 		<!--link rel="stylesheet" type="text/css" href="CSS.css"-->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="control.js"></script>
+	    	<script src="joy.js"></script> <!--This file is part of the JoyStick Project (https://github.com/bobboteck/JoyStick). Copyright (c) 2015 Roberto D'Amico (Bobboteck).-->
 		<script src="livestream.js"></script>
 		<link rel="stylesheet" href="index.css">
 	</head>
@@ -24,12 +25,9 @@
 		<section class="wheel_control">
 			<h2>Move car</h2>
 			<div class="buttons">
-				<button id="upSteer">/\</button><br>
-				<button id="leftSteer"><-</button>
-				<button id="rightSteer">-></button><br>
-				<button id="downSteer">\/</button>
+			    <div id="joyDiv" style="width:200px;height:200px;margin:50px"></div>
 			</div>
-			<p>Or, press q,a,e,d for l+,l-,r-,r+</p>
+			<p>Or, press q,a,e,d for l+,l-,r+,r-</p>
 			<input id="slide" type="range" min="1" max="1000" step="1" value="600" onchange="javascript:updateSlider(this.value)">
 			<div id="sliderAmount">600</div>
 		</section>
