@@ -12,6 +12,7 @@ $(document).ready(setTimeout(function() {
 	joystick.style.backgroundColor = "black";
 	joystick_box.style.backgroundColor = "white";
 	joystick.style.position = "absolute";
+	joystick.style.borderRadius = "50%";
 	joystick_box.appendChild(joystick);
 	joystick.style.top = (getPos(1).y - joystick.clientHeight/2) + "px";
 	joystick.style.left = (getPos(1).x - joystick.clientWidth/2) + "px";
