@@ -119,6 +119,10 @@ $(document).ready(function() {
 		var msg = lSend.concat(rSend);
 		if (msg !== prevSpeed){
 			prevSpeed = msg;
+			if (VL == 0 && VR == 0) {
+				sendKey(' ');
+				return;
+			}
 			sendKey(msg);
 		}
 	}, 25);
