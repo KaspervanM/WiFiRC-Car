@@ -47,7 +47,6 @@ $(document).ready(setTimeout(function() {
 	    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
 
 			// check if it doesnt leave container
-			console.log(Math.hypot(getPos().x, getPos().y), joystick_box.clientHeight/2);
 			if (Math.hypot(getPos().x, getPos().y) > joystick_box.clientHeight/2){
 				elmnt.style.top = (elmnt.offsetTop + pos2) + "px";
 		    elmnt.style.left = (elmnt.offsetLeft + pos1) + "px";
@@ -61,7 +60,6 @@ $(document).ready(setTimeout(function() {
 
 	    elmnt.style.top = (getPos(1).y - elmnt.clientHeight/2) + "px";
 	    elmnt.style.left = (getPos(1).x - elmnt.clientWidth/2) + "px";
-			//getPos();
 	  }
 	}
 
@@ -82,7 +80,6 @@ function getPos(parentonly = -1){
 
 	var joystick_pos_middle_relative = relativate(joystick_box_pos_middle, joystick_pos_middle);
 
-	//console.log(joystick_pos_middle_relative);
 	return joystick_pos_middle_relative;
 }
 
