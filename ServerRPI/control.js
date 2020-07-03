@@ -77,8 +77,8 @@ $(document).ready(function() {
 	setInterval(function(){
 	    var VL, VR;
         //get joystick coordinates
-    	var x = getPos(100).x/100;
-    	var y = getPos(100).y/100;
+    	var x = getPos(100).x;
+    	var y = getPos(100).y;
     	var minSpeed = document.getElementById('slide').value;
 
     	//Checker whether we should use car or tank drive
