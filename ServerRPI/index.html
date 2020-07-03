@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	    <title>WiFiRC-Car</title>
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WiFiRC-Car</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+		<script src="jquery.ui.touch-punch.min.js"></script>
 		<script src="control.js"></script>
 		<script src="KaspersJoystick.js"></script>
 		<script src="livestream.js"></script>
@@ -25,7 +29,7 @@
 		<section class="wheel_control">
 			<h2>Move car</h2>
 			<div class="buttons">
-				<div id="joyDiv" style="width:200px;height:200px;margin:50px;border-radius:50%;"></div>
+				<div id="joystick_box" style="width:200px;height:200px;margin:50px;border-radius:50%;"></div>
 			</div>
 			<p>Or, press q,a,e,d for l+,l-,r+,r-</p>
 			<input type="radio" name="drive" value="tank" id="tdm" checked>Tank drive mode
