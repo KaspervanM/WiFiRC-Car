@@ -14,8 +14,7 @@ $(document).ready(setTimeout(function() {
 	joystick.style.position = "absolute";
 	joystick.style.borderRadius = "50%";
 	joystick_box.appendChild(joystick);
-	joystick.style.top = (getPos(1).y - joystick.clientHeight/2) + "px";
-	joystick.style.left = (getPos(1).x - joystick.clientWidth/2) + "px";
+	updateJoystickPos();
 
 	// Make the DIV element draggable:
 	dragElement(joystick);
@@ -64,6 +63,10 @@ function dragElement(elmnt) {
 		elmnt.style.left = (getPos(1).x - elmnt.clientWidth/2) + "px";
 	}
 }
+function updateJoystickPos() {
+	joystick.style.top = (getPos(1).y - joystick.clientHeight/2) + "px";
+	joystick.style.left = (getPos(1).x - joystick.clientWidth/2) + "px";
+}
 
 function getPos(parentonly = -1){
 	var joystick_box_pos = joystick_box.getBoundingClientRect();
@@ -96,3 +99,4 @@ function relativate(parentPos, childPos){
 	relativePos.y = parentPos.y - childPos.y;
 	return relativePos;
 }
+window.addEventListener('resize', updateJoystickPos);
