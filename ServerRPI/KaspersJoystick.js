@@ -82,8 +82,8 @@ function getPos(parentonly = -1){
 
 	if(parentonly == 100){
 		var ret = {};
-		ret.x = joystick_pos_middle_relative.x*joystick_box.clientHeight/100;
-		ret.y = joystick_pos_middle_relative.y*joystick_box.clientHeight/100;
+		ret.x = joystick_pos_middle_relative.x/(joystick_box.clientHeight/2);
+		ret.y = joystick_pos_middle_relative.y/(joystick_box.clientHeight/2);
 		return ret;
 	}
 
