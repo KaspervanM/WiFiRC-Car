@@ -52,9 +52,6 @@ $(document).ready(function() {
 	const upCamTurnButton = document.getElementById('upCamTurn');
 	const downCamTurnButton = document.getElementById('downCamTurn');
 
-	// Create JoyStick object into the DIV 'joyDiv'
-	const Joy = new JoyStick('joyDiv');
-
 	//Send camera instructions
 	function sendDirections(direction) {
 		$.get("cameraSaver.php", {direction:direction});
@@ -80,29 +77,29 @@ $(document).ready(function() {
 	setInterval(function(){
 	    var VL, VR;
         //get joystick coordinates
-    	var x = Joy.GetX()/100;
-    	var y = Joy.GetY()/100;
+    	var x = getPos(100).x/100;
+    	var y = getPos(100).y/100;
     	var minSpeed = document.getElementById('slide').value;
-    	
+
     	//Checker whether we should use car or tank drive
 	    if(document.getElementById('tdm').checked) {
 	        //Tank drive mode radio button is checked
-    
+
     		//convert to polar
     		var r = Math.hypot(x, y);
     		if (r>1) r=1; // because it's a square joystick
     		var t = Math.atan2(y, x) - Math.PI / 4; // theta with 45 degree rotation
-    
+
     		//back to cartesian, rescale the new coords and clamp to -1/+1 with motor correction
     		VL = Math.max(-1, Math.min((r * Math.cos(t)) * Math.sqrt(2), 1))*1000;
     		VR = Math.max(-1, Math.min((r * Math.sin(t)) * Math.sqrt(2), 1))*1000;
-    		
+
         }else if(document.getElementById('cdm').checked) {
             //Car drive mode radio button is checked
             VL = 1000*y; //Thrust motor
             VR = 1000*x; //Steer motor
         }else alert("Please select one of the options.");
-		
+
 		//Apply minimum at which motors start moving
 		//VL
 		if (VL !== 0) VL = Math.round(VL/Math.abs(VL)*minSpeed + VL/1000 *(1000 - minSpeed));
@@ -122,6 +119,10 @@ $(document).ready(function() {
 		var msg = lSend.concat(rSend);
 		if (msg !== prevSpeed){
 			prevSpeed = msg;
+			if (VL == 0 && VR == 0) {
+				sendKey('');
+				return;
+			}
 			sendKey(msg);
 		}
 	}, 25);
