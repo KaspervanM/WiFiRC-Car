@@ -64,33 +64,36 @@
  *(optional) - Sets the behavior of the stick, whether or not, it should return
  *to zero position when released (Default value is True and return to zero)
  */
-var JoyStick = (function(container, parameters) {
+var JoyStick = function (container, parameters) {
   parameters = parameters || {};
-  var title = (typeof parameters.title === "undefined" ? "joystick"
-                                                       : parameters.title),
-      width = (typeof parameters.width === "undefined" ? 0 : parameters.width),
-      height =
-          (typeof parameters.height === "undefined" ? 0 : parameters.height),
-      internalFillColor = (typeof parameters.internalFillColor === "undefined"
-                               ? "#00AA00"
-                               : parameters.internalFillColor),
-      internalLineWidth = (typeof parameters.internalLineWidth === "undefined"
-                               ? 2
-                               : parameters.internalLineWidth),
-      internalStrokeColor =
-          (typeof parameters.internalStrokeColor === "undefined"
-               ? "#003300"
-               : parameters.internalStrokeColor),
-      externalLineWidth = (typeof parameters.externalLineWidth === "undefined"
-                               ? 2
-                               : parameters.externalLineWidth),
-      externalStrokeColor =
-          (typeof parameters.externalStrokeColor === "undefined"
-               ? "#008000"
-               : parameters.externalStrokeColor),
-      autoReturnToCenter = (typeof parameters.autoReturnToCenter === "undefined"
-                                ? true
-                                : parameters.autoReturnToCenter);
+  var title =
+      typeof parameters.title === "undefined" ? "joystick" : parameters.title,
+    width = typeof parameters.width === "undefined" ? 0 : parameters.width,
+    height = typeof parameters.height === "undefined" ? 0 : parameters.height,
+    internalFillColor =
+      typeof parameters.internalFillColor === "undefined"
+        ? "#00AA00"
+        : parameters.internalFillColor,
+    internalLineWidth =
+      typeof parameters.internalLineWidth === "undefined"
+        ? 2
+        : parameters.internalLineWidth,
+    internalStrokeColor =
+      typeof parameters.internalStrokeColor === "undefined"
+        ? "#003300"
+        : parameters.internalStrokeColor,
+    externalLineWidth =
+      typeof parameters.externalLineWidth === "undefined"
+        ? 2
+        : parameters.externalLineWidth,
+    externalStrokeColor =
+      typeof parameters.externalStrokeColor === "undefined"
+        ? "#008000"
+        : parameters.externalStrokeColor,
+    autoReturnToCenter =
+      typeof parameters.autoReturnToCenter === "undefined"
+        ? true
+        : parameters.autoReturnToCenter;
 
   // Create Canvas element and add it in the Container object
   var objContainer = document.getElementById(container);
@@ -109,7 +112,7 @@ var JoyStick = (function(container, parameters) {
 
   var pressed = 0; // Bool - 1=Yes - 0=No
   var circumference = 2 * Math.PI;
-  var internalRadius = (canvas.width - ((canvas.width / 2) + 10)) / 2;
+  var internalRadius = (canvas.width - (canvas.width / 2 + 10)) / 2;
   var maxMoveStick = internalRadius + 5;
   var externalRadius = internalRadius + 30;
   var centerX = canvas.width / 2;
@@ -160,19 +163,25 @@ var JoyStick = (function(container, parameters) {
     if (movedX < internalRadius) {
       movedX = maxMoveStick;
     }
-    if ((movedX + internalRadius) > canvas.width) {
-      movedX = canvas.width - (maxMoveStick);
+    if (movedX + internalRadius > canvas.width) {
+      movedX = canvas.width - maxMoveStick;
     }
     if (movedY < internalRadius) {
       movedY = maxMoveStick;
     }
-    if ((movedY + internalRadius) > canvas.height) {
-      movedY = canvas.height - (maxMoveStick);
+    if (movedY + internalRadius > canvas.height) {
+      movedY = canvas.height - maxMoveStick;
     }
     context.arc(movedX, movedY, internalRadius, 0, circumference, false);
     // create radial gradient
-    var grd = context.createRadialGradient(centerX, centerY, 5, centerX,
-                                           centerY, 200);
+    var grd = context.createRadialGradient(
+      centerX,
+      centerY,
+      5,
+      centerX,
+      centerY,
+      200
+    );
     // Light color
     grd.addColorStop(0, internalFillColor);
     // Dark color
@@ -187,7 +196,9 @@ var JoyStick = (function(container, parameters) {
   /**
    * @desc Events for manage touch
    */
-  function onTouchStart(event) { pressed = 1; }
+  function onTouchStart(event) {
+    pressed = 1;
+  }
 
   function onTouchMove(event) {
     // Prevent the browser from doing its default thing (scroll, zoom)
@@ -229,7 +240,9 @@ var JoyStick = (function(container, parameters) {
   /**
    * @desc Events for manage mouse
    */
-  function onMouseDown(event) { pressed = 1; }
+  function onMouseDown(event) {
+    pressed = 1;
+  }
 
   function onMouseMove(event) {
     if (pressed === 1) {
@@ -274,33 +287,41 @@ var JoyStick = (function(container, parameters) {
    * @desc The width of canvas
    * @return Number of pixel width
    */
-  this.GetWidth = function() { return canvas.width; };
+  this.GetWidth = function () {
+    return canvas.width;
+  };
 
   /**
    * @desc The height of canvas
    * @return Number of pixel height
    */
-  this.GetHeight = function() { return canvas.height; };
+  this.GetHeight = function () {
+    return canvas.height;
+  };
 
   /**
    * @desc The X position of the cursor relative to the canvas that contains it
    * and to its dimensions
    * @return Number that indicate relative position
    */
-  this.GetPosX = function() { return movedX; };
+  this.GetPosX = function () {
+    return movedX;
+  };
 
   /**
    * @desc The Y position of the cursor relative to the canvas that contains it
    * and to its dimensions
    * @return Number that indicate relative position
    */
-  this.GetPosY = function() { return movedY; };
+  this.GetPosY = function () {
+    return movedY;
+  };
 
   /**
    * @desc Normalizzed value of X move of stick
    * @return Integer from -100 to +100
    */
-  this.GetX = function() {
+  this.GetX = function () {
     return (100 * ((movedX - centerX) / maxMoveStick)).toFixed();
   };
 
@@ -308,8 +329,8 @@ var JoyStick = (function(container, parameters) {
    * @desc Normalizzed value of Y move of stick
    * @return Integer from -100 to +100
    */
-  this.GetY = function() {
-    return ((100 * ((movedY - centerY) / maxMoveStick)) * -1).toFixed();
+  this.GetY = function () {
+    return (100 * ((movedY - centerY) / maxMoveStick) * -1).toFixed();
   };
 
   /**
@@ -318,13 +339,15 @@ var JoyStick = (function(container, parameters) {
    * @return String of cardinal point N, NE, E, SE, S, SW, W, NW and C when it
    *     is placed in the center
    */
-  this.GetDir = function() {
+  this.GetDir = function () {
     var result = "";
     var orizontal = movedX - centerX;
     var vertical = movedY - centerY;
 
-    if (vertical >= directionVerticalLimitNeg &&
-        vertical <= directionVerticalLimitPos) {
+    if (
+      vertical >= directionVerticalLimitNeg &&
+      vertical <= directionVerticalLimitPos
+    ) {
       result = "C";
     }
     if (vertical < directionVerticalLimitNeg) {
@@ -351,4 +374,4 @@ var JoyStick = (function(container, parameters) {
 
     return result;
   };
-});
+};
