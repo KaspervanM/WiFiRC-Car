@@ -120,7 +120,7 @@ $(document).ready(function() {
 		if (msg !== prevSpeed){
 			prevSpeed = msg;
 			if (VL == 0 && VR == 0) {
-				sendKey(' ');
+				sendKey('');
 				return;
 			}
 			sendKey(msg);
