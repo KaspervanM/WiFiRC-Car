@@ -1,18 +1,17 @@
 $(document).ready(setTimeout(function() {
 	$("#joystick_box").append("<div id='joystick'></div>");
 	$("#joystick").width("33%").height("33%");//33*$("#joystick_box").height()/100);//33*$("#joystick_box").width()/100);
-	$("#joystick").css("background-color", "black").css("position", "relative");;
+	$("#joystick").css("background-color", "black").css("position", "relative").css("border-radius", "50%");
 	$("#joystick_box").css("background-color", "white");
-	$("#joystick").css("border-radius", "50%");
 	updateJoystickPos();
 
 	// Make the DIV element draggable:
-	var radius = 100+0*$("#joystick_box").width()/2;
+	var radius = $("#joystick_box").width()/2;
 	var zoom = $('#joystick').css('zoom');
 	$('#joystick').draggable({
-    drag: function( event, ui ) {
-			var x = ui.position.left - radius,
-			y = radius - ui.position.top,
+		drag: function( event, ui ) {
+			var x = ui.position.left+$("#joystick").width()/2 - radius,
+			y = radius - (ui.position.top+$("#joystick").height()/2),
 			h = Math.hypot(x, y);
 
 			var factor = (1 / zoom) -1;
@@ -20,14 +19,14 @@ $(document).ready(setTimeout(function() {
 			ui.position.left += Math.round((ui.position.left- ui.originalPosition.left) * factor);
 
 			if (Math.floor(h) > radius) {
-			  ui.position.top =  radius - Math.round(radius * y / h);
-			  ui.position.left = Math.round(radius * x / h) + radius;
+				ui.position.top =  radius - Math.round(radius * y / h) - $("#joystick").height()/2;
+				ui.position.left = Math.round(radius * x / h) + radius - $("#joystick").width()/2;
 			}
-    },
-	revert: true,
-	revertDuration: 300,
-	scroll: false
-});
+		},
+		revert: true,
+		revertDuration: 300,
+		scroll: false
+	});
 }, '2000'));
 
 function updateJoystickPos() {
