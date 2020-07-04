@@ -125,7 +125,7 @@ $(document).ready(function() {
 			}
 			sendKey(msg);
 		}
-	}, 25);
+	}, 300);
 
 	//Handle mouse releases
 	document.addEventListener('mouseup', () => {
