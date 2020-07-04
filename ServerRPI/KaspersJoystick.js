@@ -30,7 +30,6 @@ $(document).ready(setTimeout(function() {
 }, '2000'));
 
 function updateJoystickPos() {
-	console.log(1);
 	$("#joystick").offset({top: Math.round(getPos(1).y - $("#joystick").height()/2), left: Math.round(getPos(1).x - $("#joystick").width()/2)});
 }
 
@@ -49,8 +48,8 @@ function getPos(parentonly = -1){
 
 	if(parentonly == 100){
 		var ret = {};
-		ret.x = joystick_pos_middle_relative.x/($("#joystick_box").width()/2);
-		ret.y = joystick_pos_middle_relative.y/($("#joystick_box").height()/2);
+		ret.x = parseInt(joystick_pos_middle_relative.x/($("#joystick_box").width()/2) * 100) / 100;
+		ret.y = parseInt(joystick_pos_middle_relative.y/($("#joystick_box").height()/2) * 100) / 100;
 		return ret;
 	}
 
