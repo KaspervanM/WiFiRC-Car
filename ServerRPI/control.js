@@ -39,7 +39,7 @@ function keyDownHandler(event) {
 	var l = 0,
 		r = 0;
 	var pressed = event.keyCode;
-	if (pressed in KeyboardHelperTank && keys.includes(pressed) && document.getElementById("tdm").checked) {
+	if (pressed in KeyboardHelperTank && !keys.includes(pressed) && document.getElementById("tdm").checked) {
 		l = r = 0;
 		keys.map(function(num) {
 			if (KeyboardHelperTank[num].includes("l")) {
