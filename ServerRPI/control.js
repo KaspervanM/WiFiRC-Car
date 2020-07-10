@@ -1,12 +1,11 @@
 // Declare some vars
 var keys = [];
-var KeyboardHelperTank =
-    {65 : "600l-", 81 : "600l+", 68 : "600r-", 69 : "600r+"};
+var KeyboardHelperTank = { 65: "600l-", 81: "600l+", 68: "600r-", 69: "600r+" };
 var KeyboardHelperCar = {
-  83 : "600l-",
-  87 : "600l+",
-  65 : "600r-",
-  68 : "600r+",
+  83: "600l-",
+  87: "600l+",
+  65: "600r-",
+  68: "600r+",
 }; // Right now I'm using the left motor as if it was thrust.
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
@@ -17,50 +16,61 @@ function updateSlider(slideAmount) {
   sliderDiv.innerHTML = slideAmount;
   var n = slideAmount.toString();
   KeyboardHelperTank = {
-    65 : n + "l-",
-    81 : n + "l+",
-    68 : n + "r-",
-    69 : n + "r+",
+    65: n + "l-",
+    81: n + "l+",
+    68: n + "r-",
+    69: n + "r+",
   };
   KeyboardHelperCar = {
-    83 : n + "l-",
-    87 : n + "l+",
-    65 : n + "r-",
-    68 : n + "r+",
+    83: n + "l-",
+    87: n + "l+",
+    65: n + "r-",
+    68: n + "r+",
   }; // Right now I'm using the left motor as if it was thrust.
 }
 
 // Handle key presses
 function keyDownHandler(event) {
-  var l = 0, r = 0;
+  var l = 0,
+    r = 0;
   var pressed = event.keyCode;
-  if (pressed in KeyboardHelperTank && keys.includes(pressed) &&
-      document.getElementById("tdm").checked) {
+  if (
+    pressed in KeyboardHelperTank &&
+    keys.includes(pressed) &&
+    document.getElementById("tdm").checked
+  ) {
     l = r = 0;
-    keys.map(function(num) {
+    keys.map(function (num) {
       if (KeyboardHelperTank[num].includes("l")) {
         l++;
       } else {
         r++;
       }
     });
-    if ((KeyboardHelperTank[pressed].includes("l") && l === 0) ||
-        (KeyboardHelperTank[pressed].includes("r") && r === 0)) {
+    if (
+      (KeyboardHelperTank[pressed].includes("l") && l === 0) ||
+      (KeyboardHelperTank[pressed].includes("r") && r === 0)
+    ) {
       keys.push(pressed);
       combine();
     }
-  } else if (pressed in KeyboardHelperCar && !keys.includes(pressed) &&
-             document.getElementById("cdm").checked) {
+  } else if (
+    pressed in KeyboardHelperCar &&
+    !keys.includes(pressed) &&
+    document.getElementById("cdm").checked
+  ) {
     l = r = 0;
-    keys.map(function(num) {
+    keys.map(function (num) {
       if (KeyboardHelperCar[num].includes("l")) {
         l++;
       } else {
         r++;
       }
     });
-    if ((KeyboardHelperCar[pressed].includes("l") && l === 0) ||
-        (KeyboardHelperCar[pressed].includes("r") && r === 0)) {
+    if (
+      (KeyboardHelperCar[pressed].includes("l") && l === 0) ||
+      (KeyboardHelperCar[pressed].includes("r") && r === 0)
+    ) {
       keys.push(pressed);
       combine();
     }
@@ -79,7 +89,7 @@ function keyUpHandler(event) {
 // Send motor instructions
 function sendKey(key) {
   console.log(key);
-  $.get("saver.php", {key : key});
+  $.get("saver.php", { key: key });
 }
 // Send keys that where used
 function combine() {
@@ -87,22 +97,22 @@ function combine() {
   // Check whether we should use car or tank drive
   if (document.getElementById("tdm").checked) {
     // Tank drive mode radio button is checked
-    combined = keys.map(function(num) {
-                     if (num in KeyboardHelperTank)
-                       return KeyboardHelperTank[num];
-                   })
-                   .join("");
+    combined = keys
+      .map(function (num) {
+        if (num in KeyboardHelperTank) return KeyboardHelperTank[num];
+      })
+      .join("");
   } else if (document.getElementById("cdm").checked) {
     // Car drive mode radio button is checked
-    combined = keys.map(function(num) {
-                     if (num in KeyboardHelperCar)
-                       return KeyboardHelperCar[num];
-                   })
-                   .join("");
+    combined = keys
+      .map(function (num) {
+        if (num in KeyboardHelperCar) return KeyboardHelperCar[num];
+      })
+      .join("");
   }
   sendKey(combined);
 }
-$(document).ready(function() {
+$(document).ready(function () {
   // Camera button elements
   const leftCamTurnButton = document.getElementById("leftCamTurn");
   const rightCamTurnButton = document.getElementById("rightCamTurn");
@@ -111,23 +121,27 @@ $(document).ready(function() {
 
   // Send camera instructions
   function sendDirections(direction) {
-    $.get("cameraSaver.php", {direction : direction});
+    $.get("cameraSaver.php", { direction: direction });
   }
 
   // Camera buttons
-  leftCamTurnButton.addEventListener("mousedown",
-                                     () => { sendDirections("h+"); });
-  rightCamTurnButton.addEventListener("mousedown",
-                                      () => { sendDirections("h-"); });
-  upCamTurnButton.addEventListener("mousedown",
-                                   () => { sendDirections("v-"); });
-  downCamTurnButton.addEventListener("mousedown",
-                                     () => { sendDirections("v+"); });
+  leftCamTurnButton.addEventListener("mousedown", () => {
+    sendDirections("h+");
+  });
+  rightCamTurnButton.addEventListener("mousedown", () => {
+    sendDirections("h-");
+  });
+  upCamTurnButton.addEventListener("mousedown", () => {
+    sendDirections("v-");
+  });
+  downCamTurnButton.addEventListener("mousedown", () => {
+    sendDirections("v+");
+  });
 
   var prevSpeed = " ";
 
   // Joystick
-  setInterval(function() {
+  setInterval(function () {
     var VL, VR;
     // get joystick coordinates
     var x = getPos(100).x;
@@ -149,32 +163,31 @@ $(document).ready(function() {
       // Car drive mode radio button is checked
       VL = 1000 * y; // Thrust motor
       VR = 1000 * x; // Steer motor
-    } else
-      alert("Please select one of the options.");
+    } else alert("Please select one of the options.");
 
     // Apply minimum at which motors start moving
     // VL
     if (VL !== 0)
-      VL = Math.round((VL / Math.abs(VL)) * minSpeed +
-                      (VL / 1000) * (1000 - minSpeed));
+      VL = Math.round(
+        (VL / Math.abs(VL)) * minSpeed + (VL / 1000) * (1000 - minSpeed)
+      );
     // VR
     if (VR !== 0)
-      VR = Math.round((VR / Math.abs(VR)) * minSpeed +
-                      (VR / 1000) * (1000 - minSpeed));
+      VR = Math.round(
+        (VR / Math.abs(VR)) * minSpeed + (VR / 1000) * (1000 - minSpeed)
+      );
 
     // Convert to arduino readable values
     // lSend
     var lSend = Math.abs(VL).toString().concat("l");
     if (VL < 0) {
       lSend = lSend.concat("-");
-    } else
-      lSend = lSend.concat("+");
+    } else lSend = lSend.concat("+");
     // rSend
     var rSend = Math.abs(VR).toString().concat("r");
     if (VR < 0) {
       rSend = rSend.concat("-");
-    } else
-      rSend = rSend.concat("+");
+    } else rSend = rSend.concat("+");
 
     var msg = lSend.concat(rSend);
     if (msg !== prevSpeed) {
@@ -190,7 +203,6 @@ $(document).ready(function() {
   // Handle mouse releases
   document.addEventListener("mouseup", () => {
     sendDirections(" ");
-    if (keys.length === 0)
-      sendKey("");
+    if (keys.length === 0) sendKey("");
   });
 });
