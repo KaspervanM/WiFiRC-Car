@@ -1,6 +1,7 @@
 //Declare some vars
 var keys = [];
-var KeyboardHelper = { 65: "600l-", 81: "600l+", 68: "600r-", 69: "600r+" };
+var KeyboardHelperTank = { 65: "600l-", 81: "600l+", 68: "600r-", 69: "600r+" };
+var KeyboardHelperCar = { 83: "600l-", 87: "600l+", 65: "600r-", 68: "600r+" }; //Right now I'm using the left motor as if it was thrust.
 document.addEventListener('keydown', keyDownHandler, false);
 document.addEventListener('keyup', keyUpHandler, false);
 
@@ -9,17 +10,24 @@ function updateSlider(slideAmount) {
 	var sliderDiv = document.getElementById("sliderAmount");
 	sliderDiv.innerHTML = slideAmount;
 	var n = slideAmount.toString();
-	KeyboardHelper = { 65: n+"l-", 81: n+"l+", 68: n+"r-", 69: n+"r+" };
+	KeyboardHelperTank = { 65: n+"l-", 81: n+"l+", 68: n+"r-", 69: n+"r+" };
+	KeyboardHelperCar = { 83: n+"l-", 87: n+"l+", 65: n+"r-", 68: n+"r+" }; //Right now I'm using the left motor as if it was thrust.
 }
 
 //Handle key presses
 function keyDownHandler(event) {
 	var pressed = event.keyCode;
-	if (pressed in KeyboardHelper && !keys.includes(pressed)) {
-		var l = 0;
-		var r = 0;
-		keys.map(function (num){if (KeyboardHelper[num].includes("l")) {l++;} else {r++;}});
-		if ((KeyboardHelper[pressed].includes("l") && l === 0) || (KeyboardHelper[pressed].includes("r") && r === 0)){
+	if (pressed in KeyboardHelperTank && !keys.includes(pressed) && document.getElementById('tdm').checked) {
+		var l = 0, r = 0;
+		keys.map(function (num){if (KeyboardHelperTank[num].includes("l")) {l++;} else {r++;}});
+		if ((KeyboardHelperTank[pressed].includes("l") && l === 0) || (KeyboardHelperTank[pressed].includes("r") && r === 0)){
+			keys.push(pressed);
+			combine();
+		}
+	}else if (pressed in KeyboardHelperCar && !keys.includes(pressed) && document.getElementById('cdm').checked) {
+		var l = 0, r = 0;
+		keys.map(function (num){if (KeyboardHelperCar[num].includes("l")) {l++;} else {r++;}});
+		if ((KeyboardHelperCar[pressed].includes("l") && l === 0) || (KeyboardHelperCar[pressed].includes("r") && r === 0)){
 			keys.push(pressed);
 			combine();
 		}
@@ -42,8 +50,15 @@ function sendKey(key) {
 }
 //Send keys that where used
 function combine() {
-	var combined = keys.map(function (num){if (num in KeyboardHelper) return (KeyboardHelper[num]);}).join('');
-	sendKey(combined);
+	//Check whether we should use car or tank drive
+	if(document.getElementById('tdm').checked) {
+		//Tank drive mode radio button is checked
+		var combined = keys.map(function (num){if (num in KeyboardHelperTank) return (KeyboardHelperTank[num]);}).join('');
+	}else if(document.getElementById('cdm').checked) {
+		//Car drive mode radio button is checked
+		var combined = keys.map(function (num){if (num in KeyboardHelperCar) return (KeyboardHelperCar[num]);}).join('');
+	}
+sendKey(combined);
 }
 $(document).ready(function() {
 	//Camera button elements
@@ -81,7 +96,7 @@ $(document).ready(function() {
     	var y = getPos(100).y;
     	var minSpeed = document.getElementById('slide').value;
 
-    	//Checker whether we should use car or tank drive
+    	//Check whether we should use car or tank drive
 	    if(document.getElementById('tdm').checked) {
 	        //Tank drive mode radio button is checked
 
