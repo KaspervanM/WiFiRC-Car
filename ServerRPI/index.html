@@ -31,9 +31,13 @@
 			<div class="buttons">
 				<div id="joystick_box" style="width:200px;height:200px;margin:50px;border-radius:50%;"></div>
 			</div>
-			<p>Or, press q,a,e,d for l+,l-,r+,r-</p>
+			<p>In tank mode, use keys q, a, e, d for l+, l-, r+, r-.</p>
+			<p>In car mode, use keys w, a, s, d for to control the car accordingly.</p>
+			<h3>Settings</h3>
+			<h4>Drive mode</h4>
 			<input type="radio" name="drive" value="tank" id="tdm" checked>Tank drive mode
 			<input type="radio" name="drive" value="car" id="cdm">Car drive mode
+			<h4>Minimum power</h4>
 			<input id="slide" type="range" min="1" max="1000" step="1" value="600" onchange="javascript:updateSlider(this.value)">
 			<div id="sliderAmount">600</div>
 		</section></div>
