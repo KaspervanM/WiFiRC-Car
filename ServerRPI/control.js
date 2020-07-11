@@ -157,8 +157,10 @@ $(document).ready(function() {
 		} else alert("Please select one of the options.");
 		
 		//Fine tuning if user plugged the motors wrongly
-		if (document.getElementById("reversePolarity").checked) {
+		if (document.getElementById("reversePolarityL").checked) {
 		  VL *= -1;
+		 }
+		 if (document.getElementById("reversePolarityR").checked) {
 		  VR *= -1;
 		 }
 		 if (document.getElementById("remapSpeed").checked) {
