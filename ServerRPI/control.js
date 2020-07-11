@@ -155,6 +155,17 @@ $(document).ready(function() {
 			VL = 1000 * y; // Thrust motor
 			VR = 1000 * x; // Steer motor
 		} else alert("Please select one of the options.");
+		
+		//Fine tuning if user plugged the motors wrongly
+		if (document.getElementById("reversePolarity").checked) {
+		  VL *= -1;
+		  VR *= -1;
+		 }
+		 if (document.getElementById("remapSpeed").checked) {
+		  var oldVL = VL;
+		  VL = VR;
+		  VR = oldVL;		  
+		 }
 
 		// Apply minimum at which motors start moving
 		// VL
