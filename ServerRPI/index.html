@@ -17,30 +17,40 @@
 			<img id=liveStream alt="Sorry, no video available at the moment...">
 		</section>
 		<div class="controls">
-		<section class="cam_control">
-			<h2>Move the camera (not yet available)</h2>
-			<div class="buttons">
-				<button id="upCamTurn">&#8593;</button><br>
-				<button id="leftCamTurn">&#8592;</button>
-				<button id="rightCamTurn">&#8594;</button><br>
-				<button id="downCamTurn">&#8595;</button>
-			</div>
-		</section>
-		<section class="wheel_control">
-			<h2>Move car</h2>
-			<div class="buttons">
-				<div id="joystick_box" style="width:200px;height:200px;margin:50px;border-radius:50%;"></div>
-			</div>
-			<p>In tank mode, use keys q, a, e, d for l+, l-, r+, r-.</p>
-			<p>In car mode, use keys w, a, s, d for to control the car accordingly.</p>
+			<section class="cam_control">
+				<h2>Move the camera</h2>
+				<div class="buttons">
+					<button id="upCamTurn">&#8593;</button><br>
+					<button id="leftCamTurn">&#8592;</button>
+					<button id="rightCamTurn">&#8594;</button><br>
+					<button id="downCamTurn">&#8595;</button>
+				</div>
+			</section>
+			<section class="wheel_control">
+				<h2>Move car</h2>
+				<div class="buttons">
+					<div id="joystick_box" style="width:200px;height:200px;margin:50px;border-radius:50%;"></div>
+				</div>
+			</section>
+		</div>
+		<section class="settings">
 			<h3>Settings</h3>
 			<h4>Drive mode</h4>
-			<input type="radio" name="drive" value="tank" id="tdm" checked>Tank drive mode
-			<input type="radio" name="drive" value="car" id="cdm">Car drive mode
-			<h4>Minimum power</h4>
+			<input type="radio" name="tdm" id="tdm" checked>
+			<label for="tdm">Tank drive mode</label><br>
+			<input type="radio" name="cdm" id="cdm">
+			<label for="cdm">Car drive mode</label><br>
+			<h4>Fine tuning</h4>
+			<input type="checkbox" id="reversePolarity" name="reversePolarity">
+			<label for="reversePolarity">Reverse motor polarity</label><br>
+			<input type="checkbox" id="remapSpeed" name="remapSpeed">
+			<label for="remapSpeed">Remap motor speeds</label><br>
+			<h5>Minimum power</h5>
 			<input id="slide" type="range" min="1" max="1000" step="1" value="600" onchange="javascript:updateSlider(this.value)">
 			<div id="sliderAmount">600</div>
-		</section></div>
+		</section>
+		<p>In tank mode, use keys q, a, e, d for l+, l-, r+, r-.</p>
+		<p>In car mode, use keys w, a, s, d for to control the car accordingly.</p>
 		<p>You may want to <a href='/WiFiConnections.php'>go to the WiFi page</a>.</p>
 	</body>
 </html>
