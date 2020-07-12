@@ -107,6 +107,9 @@ $(document).ready(function() {
 	const rightCamTurnButton = document.getElementById("rightCamTurn");
 	const upCamTurnButton = document.getElementById("upCamTurn");
 	const downCamTurnButton = document.getElementById("downCamTurn");
+	const reversePolarityL = document.getElementById('reversePolarityL');
+	const reversePolarityR = document.getElementById('reversePolarityR');
+	const remapSpeed = document.getElementById('remapSpeed');
 
 	// Send camera instructions
 	function sendDirections(direction) {
@@ -127,6 +130,23 @@ $(document).ready(function() {
 	});
 	downCamTurnButton.addEventListener("mousedown", () => {
 		sendDirections("v+");
+	});
+	
+	//Settings for key control
+	reversePolarityL.addEventListener("change", (event) => {
+		if (event.target.checked){
+			alert("reverseL checked");
+		}
+	});
+	reversePolarityR.addEventListener("change", (event) => {
+		if (event.target.checked){
+			alert("reverseR checked");
+		}
+	});
+	remapSpeed.addEventListener("change", (event) => {
+		if (event.target.checked){
+			alert("remapSpeed checked");
+		}
 	});
 
 	var prevSpeed = " ";
