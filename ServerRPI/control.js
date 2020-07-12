@@ -21,16 +21,16 @@ function updateSlider(slideAmount) {
 	sliderDiv.innerHTML = slideAmount;
 	var n = slideAmount.toString();
 	KeyboardHelperTank = {
-		65: n + "l-",
-		81: n + "l+",
-		68: n + "r-",
-		69: n + "r+",
+		65: n + KeyboardHelperTank[65].slice(-2),
+		81: n + KeyboardHelperTank[81].slice(-2),
+		68: n + KeyboardHelperTank[68].slice(-2),
+		69: n + KeyboardHelperTank[69].slice(-2),
 	};
 	KeyboardHelperCar = {
-		83: n + "l-",
-		87: n + "l+",
-		65: n + "r-",
-		68: n + "r+",
+		83: n + KeyboardHelperCar[83].slice(-2),
+		87: n + KeyboardHelperCar[87].slice(-2),
+		65: n + KeyboardHelperCar[65].slice(-2),
+		68: n + KeyboardHelperCar[68].slice(-2),
 	}; // Right now I'm using the left motor as if it was thrust.
 }
 
@@ -131,22 +131,49 @@ $(document).ready(function() {
 	downCamTurnButton.addEventListener("mousedown", () => {
 		sendDirections("v+");
 	});
-	
-	//Settings for key control
+
+	//Reverses left motor polarity
 	reversePolarityL.addEventListener("change", (event) => {
 		if (event.target.checked){
-			alert("reverseL checked");
+			KeyboardHelperTank[65] = KeyboardHelperTank[65].slice(0, -1).concat("+");
+			KeyboardHelperTank[81] = KeyboardHelperTank[81].slice(0, -1).concat("-");
+			KeyboardHelperCar[83] = KeyboardHelperCar[83].slice(0, -1).concat("+");
+			KeyboardHelperCar[87] = KeyboardHelperCar[87].slice(0, -1).concat("-");
+		} else {
+			KeyboardHelperTank[65] = KeyboardHelperTank[65].slice(0, -1).concat("-");
+			KeyboardHelperTank[81] = KeyboardHelperTank[81].slice(0, -1).concat("+");
+			KeyboardHelperCar[83] = KeyboardHelperCar[83].slice(0, -1).concat("-");
+			KeyboardHelperCar[87] = KeyboardHelperCar[87].slice(0, -1).concat("+");
 		}
 	});
+	// Reverses right motor polarity
 	reversePolarityR.addEventListener("change", (event) => {
 		if (event.target.checked){
-			alert("reverseR checked");
+			KeyboardHelperTank[68] = KeyboardHelperTank[68].slice(0, -1).concat("+");
+			KeyboardHelperTank[69] = KeyboardHelperTank[69].slice(0, -1).concat("-");
+			KeyboardHelperCar[65] = KeyboardHelperCar[65].slice(0, -1).concat("+");
+			KeyboardHelperCar[68] = KeyboardHelperCar[68].slice(0, -1).concat("-");
+		} else {
+			KeyboardHelperTank[68] = KeyboardHelperTank[68].slice(0, -1).concat("-");
+			KeyboardHelperTank[69] = KeyboardHelperTank[69].slice(0, -1).concat("+");
+			KeyboardHelperCar[65] = KeyboardHelperCar[65].slice(0, -1).concat("-");
+			KeyboardHelperCar[68] = KeyboardHelperCar[68].slice(0, -1).concat("+");
 		}
 	});
-	remapSpeed.addEventListener("change", (event) => {
-		if (event.target.checked){
-			alert("remapSpeed checked");
-		}
+	// Switches l and r values
+	remapSpeed.addEventListener("change", () => {
+		var oldKHT65 = KeyboardHelperTank[65];
+		KeyboardHelperTank[65] = KeyboardHelperTank[68];
+		KeyboardHelperTank[68] = oldKHT65;
+		var oldKHT81 = KeyboardHelperTank[81];
+		KeyboardHelperTank[81] = KeyboardHelperTank[69];
+		KeyboardHelperTank[69] = oldKHT81;
+		var oldKHC83 = KeyboardHelperCar[83];
+		KeyboardHelperCar[83] = KeyboardHelperCar[65];
+		KeyboardHelperCar[65] = oldKHC83;
+		var oldKHC87 = KeyboardHelperCar[87];
+		KeyboardHelperCar[87] = KeyboardHelperCar[68];
+		KeyboardHelperCar[68] = oldKHC87;
 	});
 
 	var prevSpeed = " ";
@@ -167,7 +194,7 @@ $(document).ready(function() {
 			var r = Math.hypot(x, y);
 			var t = Math.atan2(y, x) - Math.PI / 4; // theta with 45 degree rotation
 
-			// algorithm to go from polar VL and VR
+			// algorithm to go from polar to VL and VR
 			VL = Math.max(-1, Math.min(r * Math.cos(t) * Math.sqrt(2), 1)) * 1000;
 			VR = Math.max(-1, Math.min(r * Math.sin(t) * Math.sqrt(2), 1)) * 1000;
 		} else if (document.getElementById("cdm").checked) {
@@ -177,13 +204,13 @@ $(document).ready(function() {
 		} else alert("Please select one of the options.");
 		
 		//Fine tuning if user plugged the motors wrongly
-		if (document.getElementById("reversePolarityL").checked) {
+		if (reversePolarityL.checked) {
 		  VL *= -1;
 		 }
-		 if (document.getElementById("reversePolarityR").checked) {
+		 if (reversePolarityR.checked) {
 		  VR *= -1;
 		 }
-		 if (document.getElementById("remapSpeed").checked) {
+		 if (remapSpeed.checked) {
 		  var oldVL = VL;
 		  VL = VR;
 		  VR = oldVL;		  
