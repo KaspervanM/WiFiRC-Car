@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	  <meta charset="utf-8">
-	  <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>WiFiRC-Car</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>WiFiRC-Car</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 		<script src="jquery.ui.touch-punch.min.js"></script>
@@ -14,7 +14,7 @@
 	</head>
 	<body>
 		<section class="live_feed">
-			<img id=liveStream alt="Sorry, no video available at the moment...">
+			<img id="liveStream" alt="Sorry, no video available at the moment...">
 		</section>
 		<div class="controls">
 			<section class="cam_control">
@@ -29,27 +29,45 @@
 			<section class="wheel_control">
 				<h2>Move car</h2>
 				<div class="buttons">
-					<div id="joystick_box" style="width:200px;height:200px;margin:50px;border-radius:50%;"></div>
+					<div id="joystick_box" style="width:200px;height:200px;margin-left:50px;border-radius:50%;"></div>
 				</div>
 			</section>
 		</div>
 		<section class="settings">
 			<h3>Settings</h3>
 			<h4>Drive mode</h4>
-			<input type="radio" name="dm" id="tdm" checked>
-			<label for="tdm">Tank drive mode</label><br>
-			<input type="radio" name="dm" id="cdm">
-			<label for="cdm">Car drive mode</label><br>
+			<div class="tooltip">
+				<input type="radio" name="dm" id="tdm" checked>
+				<label for="tdm">Tank drive mode</label>
+				<span class="tooltiptext">In tank mode, both motor are at the back and by changing the speeds, you can get some steering.</span>
+			</div><br>
+			<div class="tooltip">
+				<input type="radio" name="dm" id="cdm">
+				<label for="cdm">Car drive mode</label>
+				<span class="tooltiptext">In car mode, one motor is at the back, serving as a thrust motor, and one is up front, for the steering.</span>
+			</div>
 			<h4>Fine tuning</h4>
-			<input type="checkbox" id="reversePolarityL" name="reversePolarityL">
-			<label for="reversePolarityL">Reverse left/thrust motor polarity</label><br>
-			<input type="checkbox" id="reversePolarityR" name="reversePolarityR">
-			<label for="reversePolarityR">Reverse right/steer motor polarity</label><br>
-			<input type="checkbox" id="remapSpeed" name="remapSpeed">
-			<label for="remapSpeed">Remap motor speeds</label><br>
+			<div class="tooltip">
+				<input type="checkbox" id="reversePolarityL">
+				<label for="reversePolarityL">Reverse left/thrust motor polarity</label>
+				<span class="tooltiptext">This (virtually) reverses the polarity of the left motor. This can be useful if you plugged the motor wrongly.</span>
+			</div><br>
+			<div class="tooltip">
+				<input type="checkbox" id="reversePolarityR">
+				<label for="reversePolarityR">Reverse right/steer motor polarity</label>
+				<span class="tooltiptext">This (virtually) reverses the polarity of the right motor. This can be useful if you plugged the motor wrongly.</span>
+			</div><br>
+			<div class="tooltip">
+				<input type="checkbox" id="remapSpeed">
+				<label for="remapSpeed">Remap motor speeds</label>
+				<span class="tooltiptext">This (virtually) makes the left motor right and vice versa. This can be useful if you reversed the motors.</span>
+			</div>
 			<h5>Minimum power</h5>
-			<input id="slide" type="range" min="1" max="1000" step="1" value="600" onchange="javascript:updateSlider(this.value)">
-			<div id="sliderAmount">600</div>
+			<div class="tooltip">
+				<input id="slide" type="range" min="1" max="1000" step="1" value="600" onchange="javascript:updateSlider(this.value)">
+				<div id="sliderAmount">600</div>
+				<span class="tooltiptext">Applying a good value can smoothen the driving experience.</span>
+			</div>
 		</section>
 		<p>In tank mode, use keys q, a, e, d for l+, l-, r+, r-.</p>
 		<p>In car mode, use keys w, a, s, d for to control the car accordingly.</p>
